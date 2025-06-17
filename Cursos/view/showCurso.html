@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Datos del Aula</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      /* Centrar la tarjeta en la pantalla */
+      .center-card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container center-card">
+      <div class="card shadow-lg" style="width: 100%; max-width: 400px">
+        <div class="card-body">
+          <a href="index.html" class="btn btn-primary mb-3">Volver al menú</a>
+          <h5 class="card-title text-center">Datos del Curso</h5>
+          <hr />
+          <p id="nombre"><strong>Nombre:</strong></p>
+          <p id="siglas"><strong>Siglas:</strong></p>
+          <p id="profesor"><strong>Profesor</strong></p>
+          <p id="matriculados"><strong>Matriculados:</strong></p>
+          <p id="aula"><strong>Aula:</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const HOST = "https://laboratorio3-zphz.onrender.com/api/";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get("id");
+        if (id) {
+          const curso = await getCurso(id);
+          const aula = await getAula(curso.aulaId);
+          if (curso) {
+            document.getElementById(
+              "nombre"
+            ).innerHTML = `<strong>Nombre:</strong> ${curso.nombre}`;
+            document.getElementById(
+              "siglas"
+            ).innerHTML = `<strong>Siglas:</strong> ${curso.siglas}`;
+            document.getElementById(
+              "profesor"
+            ).innerHTML = `<strong>Profesor:</strong> ${curso.profesor}`;
+            document.getElementById(
+              "aula"
+            ).innerHTML = `<strong>Aula:</strong> ${aula.nombre}`;
+            document.getElementById(
+              "matriculados"
+            ).innerHTML = `<strong>Matriculados:</strong> ${curso.estudiantesMatriculados}`;
+          }
+        }
+      });
+
+      const getCurso = async (id) => {
+        try {
+          const response = await fetch(`${HOST}Courses/${id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          if (!response.ok) {
+            throw new Error("Error al obtener el aula");
+          }
+          const curso = await response.json();
+          return curso;
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      const getAula = async (id) => {
+        try {
+          const response = await fetch(`${HOST}Classrooms/${id}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            },
+          });
+          console.log(response);
+          if (!response.ok) {
+            throw new Error("Error al obtener el aula");
+          }
+          const aula = await response.json();
+          return aula;
+        } catch (error) {
+          console.error(error);
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
