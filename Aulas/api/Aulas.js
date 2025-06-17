@@ -4,6 +4,7 @@ const PATH = "/Aulas/view/";
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+  console.log(location.pathname);
   if (location.pathname === `${PATH}index.html`) {
     const aulaTableBody = document.getElementById("aula-table-body");
     const btnAulasWithAire = document.getElementById("btn-showAulasWithAire");
