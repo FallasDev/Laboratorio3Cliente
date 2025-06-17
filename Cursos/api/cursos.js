@@ -2,7 +2,7 @@ const HOST = "https://laboratorio3-zphz.onrender.com/api/";
 
 console.log(`Host: ${HOST}`); // Log the host to verify it's correct
 
-const PATH = "/labCliente/Cursos/view/";
+const PATH = "/Cursos/view/";
 
 
 

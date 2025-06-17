@@ -1,6 +1,6 @@
 const HOST = "https://laboratorio3-zphz.onrender.com/api/";
 
-const PATH = "/labCliente/Aulas/view/";
+const PATH = "/Aulas/view/";
 
 document.addEventListener("DOMContentLoaded", async () => {
 
